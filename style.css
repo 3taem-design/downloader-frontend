@@ -207,3 +207,21 @@ button[type="submit"]:active {
     margin-top: 15px;
     font-weight: bold;
 }
+
+#result-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px; /* مسافة بسيطة تحت زر submit */
+    width: 100%;
+}
+
+.result-card {
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid #0082d3;
+    width: 90%; /* ليتناسب مع عرض الصفحة */
+    max-width: 400px;
+}
