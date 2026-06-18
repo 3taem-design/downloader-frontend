@@ -2,10 +2,10 @@ const pasteBtn = document.querySelector('.paste');
 const inputField = document.querySelector('.combine-input input');
 const form = document.querySelector('.main-form');
 
-// إضافة حاوية للنتائج في الصفحة
+// إنشاء حاوية للنتائج ووضعها مباشرة بعد الفورم
 const resultContainer = document.createElement('div');
 resultContainer.id = 'result-container';
-document.body.appendChild(resultContainer);
+form.parentNode.insertBefore(resultContainer, form.nextSibling);
 
 pasteBtn.addEventListener('click', async () => {
   try {
@@ -24,7 +24,7 @@ form.addEventListener('submit', async e => {
   const val = inputField.value.trim();
   if (!val) return;
 
-  // 1. إظهار حالة التحميل
+  // إظهار حالة التحميل تحت الفورم
   form.classList.add('submitting');
   resultContainer.innerHTML = `<div class="loader">جاري المعالجة...</div>`;
 
@@ -37,11 +37,12 @@ form.addEventListener('submit', async e => {
     
     const data = await response.json();
     
-    // 2. عرض النتيجة
+    // عرض النتيجة تحت الفورم
     resultContainer.innerHTML = `
         <div class="result-card">
             <h3>${data.title}</h3>
             <img src="${data.thumbnail}" class="video-thumb">
+            <br>
             <a href="${data.url}" target="_blank" class="download-btn">تحميل الفيديو</a>
         </div>
     `;
@@ -51,7 +52,6 @@ form.addEventListener('submit', async e => {
   
   form.classList.remove('submitting');
 });
-
 
 document.querySelectorAll('.nav-links').forEach(link => {
   link.addEventListener('mouseenter', () => {
