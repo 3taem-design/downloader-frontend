@@ -22,7 +22,7 @@ form.addEventListener('submit', async e => {
   form.classList.add('submitting');
 
   try {
-    const response = await fetch('https://رابط-سيرفرك-على-ريندر.com/get-video', {
+    const response = await fetch('https://downloader-backend-2c8z.onrender.com/get-video', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url: val })
