@@ -24,8 +24,9 @@ form.addEventListener('submit', async e => {
   const val = inputField.value.trim();
   if (!val) return;
 
+  // 1. إظهار حالة التحميل
   form.classList.add('submitting');
-  resultContainer.innerHTML = "<p>جاري جلب بيانات الفيديو...</p>";
+  resultContainer.innerHTML = `<div class="loader">جاري المعالجة...</div>`;
 
   try {
     const response = await fetch('https://downloader-backend-2c8z.onrender.com/get-video', {
@@ -36,25 +37,21 @@ form.addEventListener('submit', async e => {
     
     const data = await response.json();
     
-    if (data.error) {
-        resultContainer.innerHTML = `<p style="color:red;">خطأ: ${data.error}</p>`;
-    } else {
-        // عرض النتائج في الصفحة
-        resultContainer.innerHTML = `
-            <div class="result-card">
-                <h3>${data.title}</h3>
-                <img src="${data.thumbnail}" style="max-width: 250px; border-radius: 10px;">
-                <br><br>
-                <a href="${data.url}" target="_blank" class="download-btn">تحميل الفيديو</a>
-            </div>
-        `;
-    }
+    // 2. عرض النتيجة
+    resultContainer.innerHTML = `
+        <div class="result-card">
+            <h3>${data.title}</h3>
+            <img src="${data.thumbnail}" class="video-thumb">
+            <a href="${data.url}" target="_blank" class="download-btn">تحميل الفيديو</a>
+        </div>
+    `;
   } catch (error) {
-    resultContainer.innerHTML = "<p style='color:red;'>حدث خطأ في الاتصال بالسيرفر</p>";
+    resultContainer.innerHTML = `<p style="color:red">خطأ: تأكد من الرابط وحاول مجدداً</p>`;
   }
   
   form.classList.remove('submitting');
 });
+
 
 document.querySelectorAll('.nav-links').forEach(link => {
   link.addEventListener('mouseenter', () => {
